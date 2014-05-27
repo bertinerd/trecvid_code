@@ -1,7 +1,7 @@
 function organizeTRECeval(keyframe2shot, test_id, topic, query)
     
     fprintf('\n:: Preparing results in treceval format for %d.%d ::\n', topic, query);
-    results_file = strcat('~/TRECVIDgit/results/',test_id,'/res_perQuery/',int2str(topic),'.',int2str(query),'.res');
+    results_file = strcat('~/TRECVID_test-suite/results/',test_id,'/res_perQuery/',int2str(topic),'.',int2str(query),'.res');
     results=readList(results_file);
     n_results = numel(results);
     shot_placed_map = containers.Map('KeyType','char','ValueType','uint16');

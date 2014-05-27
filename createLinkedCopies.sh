@@ -22,7 +22,7 @@ do
 	while read rank keyframe score;
 	do
 		vID=`echo $keyframe | cut -d'_' -f1`
-		ln -s ~/TRECVID/videos/deinterlaced/keyframes_all/$vID/K/$keyframe\.jpg $folderName/$rank\.jpg
+		ln -s ~/TRECVID_test-suite/keyframes_all/$vID/K/$keyframe\.jpg $folderName/$rank\.jpg
 		
 	done < $q
 

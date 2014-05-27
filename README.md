@@ -16,3 +16,4 @@ TRECVID test-suite
 * (opt) In case you need to change the DB, modify configurations on arctic:/var/opt/duserworker
 	* Name has to match trecvid2013.db.cdvs to be consistent with the .conf file (readonly)
 
+CIAO DA ALESSANDRO

@@ -5,7 +5,7 @@ mkdir ../results/$1
 # CDVS-client retrieves results from the server (On network 163)
 ../CDVS-client | tee ../results/$1/CDVS-client.out
 
-# parse CDVS raw results and separate everything per query
+# Parse CDVS raw results and separate everything per query
 ./parseResultsCDVS.sh ../results/$1
 
 # Prepare results for treceval mAP evaluation tool

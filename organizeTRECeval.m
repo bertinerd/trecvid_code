@@ -17,7 +17,7 @@ function organizeTRECeval(keyframe2shot, test_id, topic, query)
     end
     n_results = shot_placed_map.Count;
     shot_placed_cell(n_results+1:end) = [];
-    
-    save4TRECeval(shot_placed_cell,topic,query, 1000, test_id)
+    numShots = min(numel(shot_placed_cell),1000); 
+   save4TRECeval(shot_placed_cell,topic,query, numShots, test_id)
 
 end

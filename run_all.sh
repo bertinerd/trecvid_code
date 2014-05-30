@@ -12,6 +12,8 @@ mkdir ../results/$1
 matlab -nojvm -nodisplay -nosplash -r "prepare_treceval('$1')"
 
 #  Finally print average precisions for each topic and each query
-./use_treceval.sh ../results/$1 | tee ../results/$1/ALL.map
+./use_treceval.sh ../results/$1 | sed 's/ \+/ /g' | tee ../results/$1/ALL.map
+matlab -nojvm -nodisplay -nosplash -r "MAP_from_treceval('$1')"
+
 echo
 echo ":: RESULTS WRITTEN IN ../results/$1/ALL.map"

@@ -16,8 +16,14 @@ for topic=9069:9098
        dimSE = round(log2(nPixelMask/1000)*2+4);
        dimSE = max(dimSE,6);
        structuring_element = strel('square',dimSE);
-       % Dilate the bianray mask using the structuring element
+       % Dilate the binary mask using the structuring element
        maskBW_dilated = logical(imdilate(maskBW,structuring_element));
+       % For CDVS, a query object should be at least 40x40 pixels
+       while(sum(sum(maskBW_dilated))<40*40)
+            dimSE=dimSE+2;
+            structuring_element = strel('square',dimSE);
+            maskBW_dilated = logical(imdilate(maskBW,structuring_element));
+       end
        
        maskC = bwmorph(maskBW,'remove');
        % Transform the full mask into a contour of 1px width

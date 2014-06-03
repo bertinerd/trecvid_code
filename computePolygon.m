@@ -1,4 +1,9 @@
 function polygon = computePolygon(pStart, maskC_dilated)
+    
+%     subplot(3,1,2)
+%     imshow(maskC_dilated)
+        
+
     w = size(maskC_dilated,2);
     h = size(maskC_dilated,1);
     % keep track of the visited pixels
@@ -26,6 +31,8 @@ function polygon = computePolygon(pStart, maskC_dilated)
                     end
                     maskVisited(neighbours(n).y,neighbours(n).x) = true;
                     pCurrent = neighbours(n);
+%                     subplot(3,1,3)
+%                     imshow(maskVisited)
                     break;
                end
            end
@@ -36,16 +43,6 @@ function polygon = computePolygon(pStart, maskC_dilated)
         end
     end
     
-    polygon(nVertex+1:end) = [];
-
-%         figure(2)
-        subplot(3,1,2)
-        imshow(maskVisited)
-        
-%         figure(3)
-        subplot(3,1,3)
-        imshow(maskVertex)    
-    
-    
-    
+    polygon(nVertex+1:end) = []; 
+   
 end

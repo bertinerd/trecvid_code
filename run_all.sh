@@ -3,7 +3,7 @@
 mkdir ../results/$1
 
 # CDVS-client retrieves results from the server (On network 163)
-../CDVS-client ../queries.poly 120 | tee ../results/$1/CDVS-client.out
+../CDVS-client $2 120 | tee ../results/$1/CDVS-client.out
 
 # Parse CDVS raw results and separate everything per query
 ./parseResultsCDVS.sh ../results/$1

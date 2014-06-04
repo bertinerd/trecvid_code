@@ -34,8 +34,8 @@ for topic=9069:9098
        srcRGB(maskC) = 100;
        srcRGB(maskC_dilated) = 255;
        figure(1)
-%        subplot(3,1,1)
-%        imshow(srcRGB)
+       subplot(2,1,1)
+       imshow(srcRGB)
                 
        % x,y coordinates of points belonging to contour
        [Yraster,Xraster] = find(maskC_dilated==1);
@@ -56,7 +56,7 @@ for topic=9069:9098
        fprintf('\n:: Query %d.%d - %d points, %d vertex ::\n', topic, query, sum(sum(maskC_dilated)), numel(polygon)); 
        fprintf(fout,'q file:///home/bertinetto/TRECVID/queries2013/src/%d.%d.src.jpg %d %s\n', topic, query, nToRetrieve, polygon_final);
 
-       imgOut = strcat('../tv13_ins_topics/bounding_poly/',int2str(topic),'.',int2str(query),'.jpg');        
+       imgOut = strcat('../tv13_ins_topics/bounding_poly/',int2str(topic),'.',int2str(query),'.bmp');        
        print (gcf, '-dbmp', imgOut)          
    end
 end

@@ -31,8 +31,7 @@ function polygon = computePolygon(pStart, maskC_dilated)
                     end
                     maskVisited(neighbours(n).y,neighbours(n).x) = true;
                     pCurrent = neighbours(n);
-%                     subplot(3,1,3)
-%                     imshow(maskVisited)
+
                     break;
                end
            end
@@ -44,5 +43,8 @@ function polygon = computePolygon(pStart, maskC_dilated)
     end
     
     polygon(nVertex+1:end) = []; 
+    
+    subplot(2,1,2)
+    imshow(maskVisited)    
    
 end

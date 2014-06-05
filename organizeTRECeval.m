@@ -1,7 +1,7 @@
-function organizeTRECeval(keyframe2shot, test_id, topic, query)
+function organizeTRECeval_new(keyframe2shot, test_id, name, topic, query)
     
-    fprintf('\n:: Preparing results in treceval format for %d.%d ::\n', topic, query);
-    results_file = strcat('~/TRECVID_test-suite/results/',test_id,'/res_perQuery/',int2str(topic),'.',int2str(query),'.res');
+    fprintf('\n:: Preparing results in treceval format for %s ::\n', name);
+    results_file = strcat('~/TRECVID_test-suite/results/',test_id,'/res_perQuery/', name,'.res');
     results=readList(results_file);
     n_results = numel(results);
     shot_placed_map = containers.Map('KeyType','char','ValueType','uint16');
@@ -18,6 +18,6 @@ function organizeTRECeval(keyframe2shot, test_id, topic, query)
     n_results = shot_placed_map.Count;
     shot_placed_cell(n_results+1:end) = [];
     numShots = min(numel(shot_placed_cell),1000); 
-   save4TRECeval(shot_placed_cell,topic,query, numShots, test_id)
+    save4TRECeval_new(shot_placed_cell,name,topic,query, numShots, test_id)
 
 end

@@ -12,7 +12,7 @@ TRECVID test-suite
 * `matlab -nojvm -nodisplay -nosplash -r "prepare_treceval('<test_id>')"` Prepares the results for treceval mAP evaluation tool
 * `./use_treceval.sh ../results/<test_id> | tee ../results/<test_id>/ALL.map` finally prints average precisions for each topic and each query.
 
-* OTHERWISE, USE THIS SCRIPT TO RUN ALL NON-OPTIONAL PART: `./run_all.sh <test_id>`
-
+* OTHERWISE, USE THIS SCRIPT TO RUN ALL NON-OPTIONAL PART: `./run_all.sh <test_id> <query-list> [--test]`
+	* Use the flag --test to evaluate performance of a subset or different queries, i.e. not 9069:9098 + 1:4
 * (opt) In case you need to change the DB, modify configurations on arctic:/var/opt/duserworker
 	* Name has to match trecvid2013.db.cdvs to be consistent with the .conf file (readonly)

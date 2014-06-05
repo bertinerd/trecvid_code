@@ -1,18 +1,14 @@
-function prepare_treceval(test_id)
+function prepare_treceval_new(test_id, queryNames)
 
+queries = readList(queryNames);
 load('../keyframe2shot.mat')
-topics_all = (9069:9098);
 mkdir(strcat('../results/',test_id,'/results_treceval'));
-
-n_topics = numel(topics_all);
-query_per_topic = 4;
-
-for t=1:n_topics
-    for q=1:query_per_topic
-        organizeTRECeval(keyframe2shot,test_id,topics_all(t),q);
-    end
+for i=1:numel(queries)
+    q = str2double(queries{i}(1:4));
+    t = str2double(queries{i}(6));
+    organizeTRECeval_new(keyframe2shot,test_id,queries{i},q,t);
+    
 end
 
 exit
 end
-

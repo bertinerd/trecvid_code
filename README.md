@@ -14,5 +14,8 @@ TRECVID test-suite
 
 * OTHERWISE, USE THIS SCRIPT TO RUN ALL NON-OPTIONAL PART: `./run_all.sh <test_id> <query-list> [--test]`
 	* Use the flag --test to evaluate performance of a subset or different queries, i.e. not 9069:9098 + 1:4
-* (opt) In case you need to change the DB, modify configurations on arctic:/var/opt/duserworker
+---------------------------------------------------------------------------------------------------------------------
+* In case you need to change the DB, modify configurations on arctic:/var/opt/duserworker/conf.parameters.txt
 	* Name has to match trecvid2013.db.cdvs to be consistent with the .conf file (readonly)
+* /etc/init/trecvid2013.conf must be edited to modify the mode (no parameters.txt only in this very case)
+* IMPORTANT: every time you change the parameters or trecvid2013.conf you need to stop&start the service. i.e. `stop trecvid2013` and `start trecvid2013`

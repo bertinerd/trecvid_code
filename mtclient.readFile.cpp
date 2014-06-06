@@ -57,9 +57,6 @@ int main (int argc, char **argv) {
     int nQueries = atoi(argv[2]);
     string* queries = new string[nQueries];
 
-
-    // string queryLine;
-    int s = 0;
     //  Prepare our context and socket
     zmq::context_t context (1);
     zmq::socket_t socket (context, ZMQ_REQ);
@@ -71,7 +68,7 @@ int main (int argc, char **argv) {
     std::ifstream infile(argv[1]);
 
     for(int line=0; line<nQueries;line++) {
-    	std::getline(infile, queries[s]);
+    	std::getline(infile, queries[line]);
 
     }	
 
@@ -82,7 +79,7 @@ int main (int argc, char **argv) {
         cout << query << endl;
         zmq::message_t request (query.size());
         memcpy ((void *) request.data (), query.data(), query.size());
-        std::cout << "Sending query: " << query << std::endl;
+        //std::cout << "Sending query: " << query << std::endl;
         socket.send (request);
 
         //  Get the reply.

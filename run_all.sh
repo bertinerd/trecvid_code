@@ -12,13 +12,13 @@ cat $2 | grep -o "90.*jpg" | sed 's/\.jpg//g' > ../results/$1/queries.names
 nQueries=`wc -l ../results/$1/queries.names | cut -d' ' -f1`
 
 # CDVS-client retrieves results from the server (On network 163)
-# ../CDVS-client $2 $nQueries | tee ../results/$1/CDVS-client.out
+../CDVS-client $2 $nQueries | tee ../results/$1/CDVS-client.out
 
 # Parse CDVS raw results and separate everything per query
-./parseResultsCDVS.new ../results/$1 $2
+./parseResultsCDVS.sh ../results/$1 $2
 
 # Prepare results for treceval mAP evaluation tool
-matlab -nojvm -nodisplay -nosplash -r "prepare_treceval_new('$1','../results/$1/queries.names')"
+matlab -nojvm -nodisplay -nosplash -r "prepare_treceval('$1','../results/$1/queries.names')"
 
 # If it is a test, do not consider topics 9069:9098 and queries 1:4
 if [ $# -eq 3 ]; then

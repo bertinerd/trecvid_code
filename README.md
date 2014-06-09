@@ -18,4 +18,4 @@ TRECVID test-suite
 * In case you need to change the DB, modify configurations on arctic:/var/opt/duserworker/conf.parameters.txt
 	* Name has to match trecvid2013.db.cdvs to be consistent with the .conf file (readonly)
 * /etc/init/trecvid2013.conf must be edited to modify the mode (no parameters.txt only in this very case)
-* IMPORTANT: every time you change the parameters or trecvid2013.conf you need to stop&start the service. i.e. `stop trecvid2013` and `start trecvid2013`
+* IMPORTANT: every time you change the parameters or trecvid2013.conf you need to stop&start the service. i.e. `sudo stop trecvid2013` and `sudo start trecvid2013`

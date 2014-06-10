@@ -1,4 +1,4 @@
-function prepare_treceval_new(test_id, queryNames)
+function prepare_treceval(test_id, queryNames)
 
 queries = readList(queryNames);
 load('../keyframe2shot.mat')

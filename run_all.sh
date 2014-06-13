@@ -33,8 +33,8 @@ while getopts ":tc" opt; do
     c) 
 	testid_poly=`echo $2\_poly`
 	testid_full=`echo $2\_full`
-	./run_all $test-id_poly ../queries.poly
-	./run_all $test-id_full ../queries.full
+	./run_all.sh $testd_poly ../queries.poly
+	./run_all.sh $testid_full ../queries.full
 	matlab -nojvm -nodisplay -nosplash -r "boxVSfull('$testid_poly','$testid_full')" | tee ../results/$2\_poly/COMPLETE.map
 	mkdir ../results/$2
 	mv ../results/$testid_poly ../results/$2/

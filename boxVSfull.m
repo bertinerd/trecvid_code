@@ -60,7 +60,7 @@ function boxVSfull(id_poly,id_full)
     %    scoreFull = sumDistratFull/nKeypointsFull(i);
     %    scoreBox = sumDistratBox/nKeypointsBox(i);
 
-       % decide which version of the query to pick (boundin box vs full)
+       % decide which version of the query to pick (bounding box vs full)
        % according to the normalized distrat score
        if scoreFull>scoreBox
            out='ALL';
@@ -87,5 +87,5 @@ function boxVSfull(id_poly,id_full)
     end
 
     fprintf('\n:: Final mAP (type D submission) = %.4f\n',mean(mAP_final));
-
 exit
+end

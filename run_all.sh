@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-if [ $# -lt 2 -o $# -gt 3 ]; then
+if [ $# -lt 1 -o $# -gt 3 ]; then
 	echo "USAGE: ./run_all.sh [-t | -c] <test-id> [query-list]"
 	echo "    -t: test execution, when topics are not 9069..9098 with examples 1..4"
 	echo "    -c: complete execution. Uses polygon area + full image and merges the results. It also combines results of 4 examples"
@@ -33,7 +33,9 @@ while getopts ":tc" opt; do
     c) 
 	testid_poly=`echo $2\_poly`
 	testid_full=`echo $2\_full`
-	./run_all.sh $testd_poly ../queries.poly
+	echo "./run_all.sh $testid_poly ../queries.poly ......"
+	./run_all.sh $testid_poly ../queries.poly
+	echo "./run_all.sh $testid_full ../queries.full ......"
 	./run_all.sh $testid_full ../queries.full
 	matlab -nojvm -nodisplay -nosplash -r "boxVSfull('$testid_poly','$testid_full')" | tee ../results/$2\_poly/COMPLETE.map
 	mkdir ../results/$2

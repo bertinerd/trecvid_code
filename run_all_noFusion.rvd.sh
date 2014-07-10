@@ -12,7 +12,7 @@ cat $2 | grep -o "90.*jpg" | sed 's/\.jpg//g' > ../results/$1/queries.names
 nQueries=`wc -l ../results/$1/queries.names | cut -d' ' -f1`
 
 # CDVS-client retrieves results from the server (On network 163)
-#../CDVS-client $2 $nQueries | tee ../results/$1/CDVS-client.out
+../CDVS-client-RVD $2 $nQueries | tee ../results/$1/CDVS-client.out
 
 # Parse CDVS raw results and separate everything per query
 ./parseResultsCDVS.sh ../results/$1 $2

@@ -37,7 +37,7 @@ while getopts ":tc" opt; do
 	./run_all.sh $testid_poly ../queries.poly
 	echo "./run_all.sh $testid_full ../queries.full ......"
 	./run_all.sh $testid_full ../queries.full
-	matlab -nojvm -nodisplay -nosplash -r "boxVSfull('$testid_poly','$testid_full')" | tee ../results/$2\_poly/COMPLETE.map
+	matlab -nojvm -nodisplay -nosplash -r "combineAsWholeDistrat('$2',0)" | tee ../results/$2\_poly/COMPLETE.map
 	mkdir ../results/$2
 	mv ../results/$testid_poly ../results/$2/
 	mv ../results/$testid_full ../results/$2/

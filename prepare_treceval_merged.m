@@ -6,5 +6,5 @@ for topic=9069:9098
     organizeTRECeval_merged(keyframe2shot,test_id,topic);    
 end
 
-exit
+% exit
 end

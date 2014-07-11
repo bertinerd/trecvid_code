@@ -1,21 +1,21 @@
 #!/bin/bash
 
-if [ $# -lt 2 -o $# -gt 3 ]; then
-	echo "USAGE: ./run_all.sh <test-id> <query-list> [--test]"
-	exit
-fi
+#if [ $# -lt 2 -o $# -gt 3 ]; then
+#	echo "USAGE: ./run_all.sh <test-id> <query-list> [--test]"
+#	exit
+#fi
 
-mkdir ../results/$1
+#mkdir ../results/$1
 
 # Extract query names
-cat $2 | grep -o "90.*jpg" | sed 's/\.jpg//g' > ../results/$1/queries.names
-nQueries=`wc -l ../results/$1/queries.names | cut -d' ' -f1`
+#cat $2 | grep -o "90.*jpg" | sed 's/\.jpg//g' > ../results/$1/queries.names
+#nQueries=`wc -l ../results/$1/queries.names | cut -d' ' -f1`
 
 # CDVS-client retrieves results from the server (On network 163)
-../CDVS-client $2 $nQueries | tee ../results/$1/CDVS-client.out
+#../CDVS-client $2 $nQueries | tee ../results/$1/CDVS-client.out
 
 # Parse CDVS raw results and separate everything per query
-./parseResultsCDVS.sh ../results/$1 $2
+#./parseResultsCDVS.sh ../results/$1 $2
 
 # Prepare results for treceval mAP evaluation tool
 matlab -nojvm -nodisplay -nosplash -r "prepare_treceval('$1','../results/$1/queries.names')"

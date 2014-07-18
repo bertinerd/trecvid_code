@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-if [ $# -lt 1 -o $# -gt 3 ]; then
-	echo "USAGE: ./run_all.sh [-t | -c] <test-id> [query-list]"
+if [ $# -lt 1 -o $# -gt 4 ]; then
+	echo "USAGE: ./run_all.sh [-t | -c] <test-id> [query-list] <length-retrieval>"
 	echo "    -t: test execution, when topics are not 9069..9098 with examples 1..4"
 	echo "    -c: complete execution. Uses polygon area + full image and merges the results. It also combines results of 4 examples"
 	exit
@@ -27,20 +27,29 @@ while getopts ":tc" opt; do
 		do echo $q; ../trec_eval -q -a ../ins.search.qrels.tv13 ../results/$2/results_treceval/$q\.result 1000 | grep "^map[[:space:]]" | grep -v 'all';
 	done
 	exit      
-      ;;
+      ;; 
 
 ### -c: complete execution. 	
     c) 
+	sed -i "s/jpg retrievalLength/jpg $3/g" ../queries.tv13.poly	
+	sed -i "s/jpg retrievalLength/jpg $3/g" ../queries.tv13.full 
 	testid_poly=`echo $2\_poly`
 	testid_full=`echo $2\_full`
-	echo "./run_all.sh $testid_poly ../queries.poly ......"
-	./run_all.sh $testid_poly ../queries.poly
-	echo "./run_all.sh $testid_full ../queries.full ......"
-	./run_all.sh $testid_full ../queries.full
+	echo "./run_all.sh $testid_poly ../queries.tv13.poly ......"
+	./run_all.sh $testid_poly ../queries.tv13.poly
+	mv CDVS-client.time ../results/$testid_poly/ 
+	echo "./run_all.sh $testid_full ../queries.tv13.full ......"
+	./run_all.sh $testid_full ../queries.tv13.full
+	mv CDVS-client.time ../results/$testid_full/
 	mkdir ../results/$2
 	mv ../results/$testid_poly ../results/$2/
 	mv ../results/$testid_full ../results/$2/
-        matlab -nojvm -nodisplay -nosplash -r "combineAsWholeDistrat('$2',0)" | tee ../results/$2/COMPLETE.map
+             matlab -nodisplay -nosplash -r "testFusion_sum('$2','tm10','$3')"
+	matlab -nojvm -nodisplay -nosplash -r "prepare_treceval_fusion('$2')"
+	./use_treceval_fusion.sh ../results/$2
+	./createLinkedCopies.sh ../results/$2
+       	sed -i "s/jpg $3/jpg retrievalLength/g" ../queries.tv13.poly
+        	sed -i "s/jpg $3/jpg retrievalLength/g" ../queries.tv13.full
 	exit
       ;;
     \?)

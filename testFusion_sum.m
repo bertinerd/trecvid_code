@@ -1,10 +1,8 @@
-function testFusion_sum(id_test,tm)
-
-    listSize = 3000;
-%     sizeFull = 432*768;
-%     sizeBoxes = readList('../boundingBoxSize.txt');
-
-    for topic = 9069:9098
+function testFusion_sum(id_test,tm,listSize)
+    warning('off','all');
+    listSize = str2double(listSize);
+    matlabpool
+    parfor topic = 9069:9098
 
         fprintf('\nMERGING RESULTS FOR TOPIC %d\n', topic);
         idDistrat = 0;
@@ -85,4 +83,6 @@ function testFusion_sum(id_test,tm)
         end    
         fclose(fout);
     end
+    matlabpool close
+exit
 end

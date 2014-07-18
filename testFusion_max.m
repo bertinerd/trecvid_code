@@ -1,8 +1,4 @@
-function testFusion_max(id_test,tm)
-
-    listSize = 3000;
-%     sizeFull = 432*768;
-%     sizeBoxes = readList('../boundingBoxSize.txt');
+function testFusion_max(id_test,tm,listSize)
 
     for topic = 9069:9098
 

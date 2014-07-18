@@ -2,7 +2,7 @@
 
 
 if [ $# -lt 1 -o $# -gt 3 ]; then
-	echo "USAGE: ./run_all.rvd.sh [-t | -c] <test-id> [query-list]"
+	echo "USAGE: ./run_all.sh [-t | -c] <test-id> [query-list]"
 	echo "    -t: test execution, when topics are not 9069..9098 with examples 1..4"
 	echo "    -c: complete execution. Uses polygon area + full image and merges the results. It also combines results of 4 examples"
 	exit
@@ -17,8 +17,8 @@ while getopts ":tc" opt; do
 	# Extract query names
 	cat $3 | grep -o "90.*jpg" | sed 's/\.jpg//g' > ../results/$2/queries.names
 	nQueries=`wc -l ../results/$2/queries.names | cut -d' ' -f1`
-	# CDVS-client-RVD retrieves results from the server (On network 163)
-	../CDVS-client-RVD $3 $nQueries | tee ../results/$2/CDVS-client.out
+	# CDVS-client retrieves results from the server (On network 163)
+	../CDVS-client $3 $nQueries | tee ../results/$2/CDVS-client.out
 	# Parse CDVS raw results and separate everything per query
 	./parseResultsCDVS.sh ../results/$2 $3
 	# Prepare results for treceval mAP evaluation tool
@@ -33,10 +33,12 @@ while getopts ":tc" opt; do
     c) 
 	testid_poly=`echo $2\_poly`
 	testid_full=`echo $2\_full`
-	echo "./run_all.rvd.sh $testid_poly ../queries.poly ......"
-	./run_all.rvd.sh $testid_poly ../queries.poly
-	echo "./run_all.rvd.sh $testid_full ../queries.full ......"
-	./run_all.rvd.sh $testid_full ../queries.full
+	echo "./run_all.sh $testid_poly ../queries.poly ......"
+	./run_all.sh $testid_poly ../queries.poly
+	mv CDVS-client.time ../results/$testid_poly/ 
+	echo "./run_all.sh $testid_full ../queries.full ......"
+	./run_all.sh $testid_full ../queries.full
+	mv CDVS-client.time ../results/$testid_full/
 	mkdir ../results/$2
 	mv ../results/$testid_poly ../results/$2/
 	mv ../results/$testid_full ../results/$2/
@@ -45,7 +47,7 @@ while getopts ":tc" opt; do
       ;;
     \?)
 	echo "Invalid option: -$OPTARG" >&2
-	echo "USAGE: ./run_all.rvd.sh [-t] [-c] <test-id> <query-list>"
+	echo "USAGE: ./run_all.sh [-t] [-c] <test-id> <query-list>"
 	echo "    -t: use in test situations, when topics are not 9069..9098 with examples 1..4"
 	echo "    -c: complete execution. Uses polygon area + full image and merges the results. It also combines results of 4 examples"
 	exit
@@ -59,8 +61,8 @@ mkdir ../results/$1
 cat $2 | grep -o "90.*jpg" | sed 's/\.jpg//g' > ../results/$1/queries.names
 nQueries=`wc -l ../results/$1/queries.names | cut -d' ' -f1`
 
-# CDVS-client-RVD retrieves results from the server (On network 163)
-../CDVS-client-RVD $2 $nQueries | tee ../results/$1/CDVS-client.out
+# CDVS-client retrieves results from the server (On network 163)
+../CDVS-client $2 $nQueries | tee ../results/$1/CDVS-client.out
 
 # Parse CDVS raw results and separate everything per query
 ./parseResultsCDVS.sh ../results/$1 $2

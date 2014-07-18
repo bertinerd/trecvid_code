@@ -1,9 +1,5 @@
 function polygon = computePolygon(pStart, maskC_dilated)
-    
-%     subplot(3,1,2)
-%     imshow(maskC_dilated)
-        
-
+   
     w = size(maskC_dilated,2);
     h = size(maskC_dilated,1);
     % keep track of the visited pixels
@@ -27,7 +23,7 @@ function polygon = computePolygon(pStart, maskC_dilated)
                         nVertex = nVertex+1;
                         polygon(nVertex) = neighbours(n);
                         maskVertex(neighbours(n).y,neighbours(n).x) = true;
-%                         fprintf('\n:: Added vertex #%d at (%d,%d) ::\n', nVertex, neighbours(n).x, neighbours(n).y);
+                        fprintf('\n:: Added vertex #%d at (%d,%d) ::\n', nVertex, neighbours(n).x, neighbours(n).y);
                     end
                     maskVisited(neighbours(n).y,neighbours(n).x) = true;
                     pCurrent = neighbours(n);
@@ -44,7 +40,7 @@ function polygon = computePolygon(pStart, maskC_dilated)
     
     polygon(nVertex+1:end) = []; 
     
-    subplot(2,1,2)
+    subplot(3,1,3)
     imshow(maskVisited)    
    
 end

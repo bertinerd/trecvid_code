@@ -44,17 +44,18 @@ while getopts ":tc" opt; do
 	sed -i "s/jpg retrievalLength/jpg $3/g" ../queries.$year\.*	
 	testid_poly=`echo $2\_poly`
 	testid_full=`echo $2\_full`
-	echo "./run_all.sh $testid_poly ../queries.tv14.$5.poly ......"
-	./run_all.sh $testid_poly ../queries.tv14.$5.poly
+	echo "./run_all.tv14.sh $testid_poly ../queries.tv14.$5.poly ......"
+	./run_all.tv14.sh $testid_poly ../queries.tv14.$5.poly
 	mv CDVS-client.time ../results/$testid_poly/ 
-	echo "./run_all.sh $testid_full ../queries.tv14.$5\.full ......"
-	./run_all.sh $testid_full ../queries.tv14.$5\.full
+	echo "./run_all.tv14.sh $testid_full ../queries.tv14.$5\.full ......"
+	./run_all.tv14.sh $testid_full ../queries.tv14.$5\.full
 	mv CDVS-client.time ../results/$testid_full/
 	mkdir ../results/$2
 	mv ../results/$testid_poly ../results/$2/
 	mv ../results/$testid_full ../results/$2/
-        	matlab -nodisplay -nosplash -r "testFusion_sum('$2','tm10','$3','$4','$5')"
+        	matlab -nodisplay -nosplash -r "testFusion2('$2','tm10','$3','$4','$5')"
 	matlab -nojvm -nodisplay -nosplash -r "prepare_treceval_fusion('$2','$4')"
+	./use_treceval_fusion.sh ../results/$2
 	./createLinkedCopies.sh ../results/$2
        	sed -i "s/jpg $3/jpg retrievalLength/g" ../queries.$year\.*
 	exit

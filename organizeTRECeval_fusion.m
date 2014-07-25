@@ -1,6 +1,6 @@
 function organizeTRECeval_fusion(keyframe2shot, test_id, topic)
     
-    fprintf('\n:: Preparing results in treceval format for %d ::\n', topic);
+%     fprintf('\n:: Preparing results in treceval format for %d ::\n', topic);
     results_file = strcat('~/TRECVID_test-suite/results/',test_id,'/',int2str(topic),'.fusion.res');
     results=readList(results_file);
     n_results = numel(results);

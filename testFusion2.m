@@ -29,7 +29,7 @@ function testFusion2(id_test, tm, maxListSize, firstTopic, runType)
     firstTopic = str2double(firstTopic);
     matlabpool
     parfor topic = firstTopic:(firstTopic+29)
-        fprintf('\nMERGING RESULTS FOR TOPIC %d\n', topic);
+%         fprintf('\nMERGING RESULTS FOR TOPIC %d\n', topic);
         idKeyframe = 0;
         mapK2ID = containers.Map('KeyType','char','ValueType','uint32');
         mapID2K = containers.Map('KeyType','uint32','ValueType','char'); 
@@ -38,7 +38,7 @@ function testFusion2(id_test, tm, maxListSize, firstTopic, runType)
         type = {'poly','full'};
 
         for t = 1:2
-            fprintf('\n\tMERGING RESULTS FOR TOPIC %d (%s)\n', topic, type{t});
+%             fprintf('\n\tMERGING RESULTS FOR TOPIC %d (%s)\n', topic, type{t});
             fRes = strcat('../results/',id_test,'/',id_test,'_',type{t},'/');
             for query = 1:runType
                 resList = readList(strcat(fRes,'/res_perQuery/',int2str(topic),'.',int2str(query),'.src.res'));
@@ -48,7 +48,7 @@ function testFusion2(id_test, tm, maxListSize, firstTopic, runType)
                     rScoreDistrat = str2double(resList{r}{2});
                     rScoreDistrat_n = max(0, s_min(t) + (rScoreDistrat - rD_min(t))/(rD_max(t) - rD_min(t)) * (s_max(t) - s_min(t))) ;
                     if(strcmp(tm,'tm10'))
-                        rScoreGlobal = abs(str2double(resList{r}{3}));            
+                        rScoreGlobal = -(str2double(resList{r}{3}));            
                     else
                         rScoreGlobal = str2double(resList{r}{3});
                     end

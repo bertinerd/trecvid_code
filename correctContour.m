@@ -22,6 +22,10 @@ function [maskC_correct, startFrom] = correctContour(maskC_dilated, topic, query
        end       
     end
     
+    if topic==9110 && query==1
+       maskC_correct(65,7)=0; 
+    end
+    
     if topic==9113 && query==2
         startFrom = 1;
         maskC_correct(221,602) = 0;

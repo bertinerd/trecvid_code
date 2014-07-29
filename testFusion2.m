@@ -5,15 +5,15 @@ function testFusion2(id_test, tm, maxListSize, firstTopic, runType)
     sP_min = 0;
     rPD_max = 57.1226;
     rPG_max = 323.42;
-    rPD_min = 2.3;
-    rPG_min = 26.0416;
+    rPD_min = 0.1756;%2.3;
+    rPG_min = 25.2651;%26.0416;
     % Full
     sF_max = 1;
     sF_min = 0;
     rFD_max = 144.2570;
     rFG_max = 769.5630;
-    rFD_min = 2.3;
-    rFG_min = 56.9151;
+    rFD_min = 0.7354; %2.3;
+    rFG_min = 56.8250; %56.9151;
     % Both
     s_max = [sP_max sF_max];
     s_min = [sP_min sF_min];
@@ -27,8 +27,8 @@ function testFusion2(id_test, tm, maxListSize, firstTopic, runType)
     runType = str2double(runType);
     maxListSize = str2double(maxListSize);
     firstTopic = str2double(firstTopic);
-    matlabpool
-    parfor topic = firstTopic:(firstTopic+29)
+%     matlabpool
+    for topic = firstTopic:(firstTopic+29)
 %         fprintf('\nMERGING RESULTS FOR TOPIC %d\n', topic);
         idKeyframe = 0;
         mapK2ID = containers.Map('KeyType','char','ValueType','uint32');
@@ -46,7 +46,8 @@ function testFusion2(id_test, tm, maxListSize, firstTopic, runType)
                 for r=1:numel(resList)            
                     rKeyframe = resList{r}{1};
                     rScoreDistrat = str2double(resList{r}{2});
-                    rScoreDistrat_n = max(0, s_min(t) + (rScoreDistrat - rD_min(t))/(rD_max(t) - rD_min(t)) * (s_max(t) - s_min(t))) ;
+                    rScoreDistrat_n = s_min(t) + (rScoreDistrat - rD_min(t))/(rD_max(t) - rD_min(t)) * (s_max(t) - s_min(t)) ;
+                    rScoreDistrat_n = max(0, rScoreDistrat_n);
                     if(strcmp(tm,'tm10'))
                         rScoreGlobal = -(str2double(resList{r}{3}));            
                     else
@@ -85,6 +86,6 @@ function testFusion2(id_test, tm, maxListSize, firstTopic, runType)
         end
         fclose(fout);
     end
-    matlabpool close
+%     matlabpool close
 exit
 end

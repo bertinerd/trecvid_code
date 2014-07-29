@@ -61,7 +61,7 @@ for topic=9099:9128
        fprintf(fout,'q file:////home/cdvs/TRECVID/queries2014/src/%d.%d.src.jpg retrievalLength %s\n', topic, query, polygon_final);
 
        imgOut = strcat('../tv14_ins_topics/bounding_poly/',int2str(topic),'.',int2str(query),'.bmp');        
-       print (gcf, '-dbmp', imgOut)          
+%        print (gcf, '-dbmp', imgOut)          
    end
 end
 

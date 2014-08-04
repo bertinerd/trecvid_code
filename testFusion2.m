@@ -3,17 +3,17 @@ function testFusion2(id_test, tm, maxListSize, firstTopic, runType)
     % Poly
     sP_max = 1;
     sP_min = 0;
-    rPD_max = 57.1226;
-    rPG_max = 323.42;
-    rPD_min = 0.1756;%2.3;
-    rPG_min = 25.2651;%26.0416;
+    rPD_max = 57.1226 %<- 3M DB;
+    rPG_max = 323.42 %<- 3M DB;
+    rPD_min = 2.3;
+    rPG_min = 26.0416 %<- 3M DB;
     % Full
     sF_max = 1;
     sF_min = 0;
-    rFD_max = 144.2570;
-    rFG_max = 769.5630;
-    rFD_min = 0.7354; %2.3;
-    rFG_min = 56.8250; %56.9151;
+    rFD_max = 144.2570 %<- 3M DB;
+    rFG_max = 769.5630 %<- 3M DB;
+    rFD_min = 2.3;
+    rFG_min = 56.9151 %<- 3M DB;
     % Both
     s_max = [sP_max sF_max];
     s_min = [sP_min sF_min];
@@ -27,9 +27,9 @@ function testFusion2(id_test, tm, maxListSize, firstTopic, runType)
     runType = str2double(runType);
     maxListSize = str2double(maxListSize);
     firstTopic = str2double(firstTopic);
-%     matlabpool
-    for topic = firstTopic:(firstTopic+29)
-%         fprintf('\nMERGING RESULTS FOR TOPIC %d\n', topic);
+    matlabpool
+    parfor topic = firstTopic:(firstTopic+29)
+        fprintf('\nMERGING RESULTS FOR TOPIC %d\n', topic);
         idKeyframe = 0;
         mapK2ID = containers.Map('KeyType','char','ValueType','uint32');
         mapID2K = containers.Map('KeyType','uint32','ValueType','char'); 
@@ -38,7 +38,7 @@ function testFusion2(id_test, tm, maxListSize, firstTopic, runType)
         type = {'poly','full'};
 
         for t = 1:2
-%             fprintf('\n\tMERGING RESULTS FOR TOPIC %d (%s)\n', topic, type{t});
+            fprintf('\n\tMERGING RESULTS FOR TOPIC %d (%s)\n', topic, type{t});
             fRes = strcat('../results/',id_test,'/',id_test,'_',type{t},'/');
             for query = 1:runType
                 resList = readList(strcat(fRes,'/res_perQuery/',int2str(topic),'.',int2str(query),'.src.res'));
@@ -81,11 +81,11 @@ function testFusion2(id_test, tm, maxListSize, firstTopic, runType)
         idSorted(toRemove) = [];        
   
         for s=1:numel(idSorted)            
-           keyframe = mapID2K(idSorted(s));
+           keyframe = mapID2K(idSorted(s));	
            fprintf(fout,'%s %.4f\n', keyframe, scoresSorted(s));
         end
         fclose(fout);
     end
-%     matlabpool close
+    matlabpool close
 exit
 end

@@ -53,10 +53,10 @@ while getopts ":tc" opt; do
 	mkdir ../results/$2
 	mv ../results/$testid_poly ../results/$2/
 	mv ../results/$testid_full ../results/$2/
-        	matlab -nodisplay -nosplash -r "testFusion2('$2','tm10','$3','$4','$5')"
-	matlab -nojvm -nodisplay -nosplash -r "prepare_treceval_fusion('$2','$4')"
-	./use_treceval_fusion.sh ../results/$2
-	./createLinkedCopies.sh ../results/$2
+        #matlab -nodisplay -nosplash -r "testFusion2('$2','tm10','$3','$4','$5')"
+	#matlab -nojvm -nodisplay -nosplash -r "prepare_treceval_fusion('$2','$4')"
+	#./use_treceval_fusion.sh ../results/$2
+	#./createLinkedCopies.sh ../results/$2
        	sed -i "s/jpg $3/jpg retrievalLength/g" ../queries.$year\.*
 	exit
       ;;
